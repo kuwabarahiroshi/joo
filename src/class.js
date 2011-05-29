@@ -4,12 +4,12 @@
     }
 
     function define(Class) {
-        return new ClassDescriptor(Class);
+        return new ClassDescriptor(Class instanceof Function ? Class : function() {});
     }
 
     function ClassDescriptor(Class) {
-        this.Class = Class instanceof Function ? Class : function() {};
-        this.Class._super = this.Class.prototype._super = Object;
+        Class._super = Class.prototype._super = Object;
+        this.Class = Class;
         this.it = this;
     }
 
