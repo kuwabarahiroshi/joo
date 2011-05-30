@@ -157,7 +157,7 @@ Our class can borrow methods from other classes by 'borrows()' method.
 	    ownMethod: function() {}
 	});
 
-Now YourClass has `methodA`, `methodB`, `ownMethod`, but an instance of the class won't be a Mix-in provider's instance.
+Now OurClass has `methodA`, `methodB`, `ownMethod`, but an instance of the class won't be a Mix-in provider's instance.
 
 	var c = new OurClass();
 	c instanceof MethodProvider; // false
