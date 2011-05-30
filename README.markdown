@@ -128,11 +128,11 @@ This is difficult to write in a standard way. (I will explain this later in this
 
 This works perfectly as we expect.
 
-	var g = new GrandChild('Hiroshi', 29);
-	g instanceof BaseClass;      // true
-	g instanceof ChildClass;     // true
-	g instanceof GrandChild;     // true
-	g.constructor == GrandChild; // true
+	var g = new GrandChildClass('Hiroshi', 29);
+	g instanceof BaseClass;            // true
+	g instanceof ChildClass;           // true
+	g instanceof GrandChildClass;      // true
+	g.constructor == GrandChildClass;  // true
 	g.getName(); // 'My name is Hiroshi'
 	g.getAge();  // 'I am 29'
 	g + ''       // '[Object object](name: Hiroshi)'
