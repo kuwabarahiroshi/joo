@@ -168,6 +168,8 @@ Now YourClass has `methodA`, `methodB`, `ownMethod`, but an instance of the clas
 
 ### <a name="StaticProperties">Static Properties</a>
 
+Here is an example of static properties.
+
 	function MyClass() {}
 	def(MyClass).it.hasStatic({
 	    FOO: 0,
