@@ -54,7 +54,6 @@ Nevertheless, if you hate it, you can omit it.
 
 	def(MyClass).inherits(SuperClass).provides({...});
 
-
 ## <a name="Features">Features</a>
 
 Now, let's take a look at each functionalities in detail.
