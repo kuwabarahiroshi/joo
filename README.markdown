@@ -48,7 +48,7 @@ Here is the whole API of this program.
 	});
 
 The API provides `.it` as a syntactic ornament which makes class declaration look like natural sentences.
-Someone would claim that it causes unnecessary object reference, which infuluences performance.
+Someone would claim that it causes unnecessary object reference, which influences performance.
 But I think it's acceptable cost unless you declare classes thouthands of times.
 Nevertheless, if you hate it, you can omit it.
 
