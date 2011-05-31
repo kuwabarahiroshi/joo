@@ -231,6 +231,7 @@ John Resig's implementation and many other libraries which provides original cla
 * declaration sentences look like a natural language, and has explicit semantics.
 
 
+I hope this simple library would be useful to other developers.
 
 	define(MyClass).as('myapp.module.MyClass').
 	it.inherits(SuperClass).
@@ -240,5 +241,4 @@ John Resig's implementation and many other libraries which provides original cla
 	    }
 	});
 
-I hope this simple library would be useful to other developers.
 
