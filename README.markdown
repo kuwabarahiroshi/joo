@@ -231,6 +231,7 @@ John Resig's implementation and many other libraries which provides original cla
 * declaration sentences look like a natural language, and has explicit semantics.
 
 
+
 	define(MyClass).as('myapp.module.MyClass').
 	it.inherits(SuperClass).
 	it.borrows(Provider, OtherProvider).
