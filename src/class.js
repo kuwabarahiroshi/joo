@@ -8,7 +8,7 @@
     }
 
     function ClassDescriptor(Class) {
-        Class._super = Class.prototype._super = Object;
+        if (!Class._super) Class._super = Class.prototype._super = Object;
         this.Class = Class;
         this.it = this;
     }
@@ -20,7 +20,7 @@
     }
 
     ClassDescriptor.prototype.inherits = function(SuperClass) {
-        inherit(this.Class, SuperClass);
+        if (SuperClass instanceof Function) inherit(this.Class, SuperClass);
         return this;
     };
 
@@ -39,8 +39,10 @@
         return this;
     }
 
-    var hasReferenceToSuper = /xyz/.test(function(){xyz;}) ? /\b_super\b/ : /.*/;
     function Class() {}
+    var hasReferenceToSuper = /xyz/.test(function(){xyz;}) ? /\b_super\b/ : /.*/;
+    var ieBugs = {toString:0}.propertyIsEnumerable('toString') ?
+                 false : ['toString', 'toLocaleString', 'valueOf', 'constructor', 'isPrototypeOf'];
 
     function createNamespace(hierarchy, context) {
         var name = hierarchy.shift();
@@ -66,12 +68,19 @@
     }
 
     function provide(Class, properties) {
-        var name, property, proto = Class.prototype, superProto = Class._super.prototype;
+        var i = 0, name, proto = Class.prototype, superProto = Class._super.prototype;
         for (name in properties)
-            proto[name] = (property = properties[name]) instanceof Function
-                          && hasReferenceToSuper.test(property) && superProto
-                          ? createFunctionPointingToSuper(superProto, name, property)
-                          : property;
+            addProperty(proto, name, properties[name], superProto);
+
+        if (ieBugs) while (name = ieBugs[i++]) if (properties.hasOwnProperty(name))
+            addProperty(proto, name, properties[name], superProto);
+    }
+
+    function addProperty(proto, name, property, superProto) {
+        proto[name] = property instanceof Function
+            && hasReferenceToSuper.test(property) && superProto
+            ? createFunctionPointingToSuper(superProto, name, property)
+            : property;
     }
 
     function createFunctionPointingToSuper(superScope, name, fn) {

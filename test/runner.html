@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>JavaScript Simple Class Declaration Test</title>
+    <link rel="stylesheet" type="text/css" href="jasmine/lib/jasmine.css">
+</head>
+<body>
+    
+</body>
+</html>
+  <script type="text/javascript" src="jasmine/lib/jasmine.js"></script>
+  <script type="text/javascript" src="jasmine/lib/jasmine-html.js"></script>
+
+  <!-- include source files here... -->
+  <script type="text/javascript" src="../src/class.js"></script>
+
+  <!-- include spec files here... -->
+  <script type="text/javascript" src="spec.js"></script>
+
+</head>
+<body>
+<script type="text/javascript">
+  jasmine.getEnv().addReporter(new jasmine.TrivialReporter());
+  jasmine.getEnv().execute();
+</script>
+
+</body>
+</html>
