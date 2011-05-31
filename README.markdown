@@ -207,14 +207,15 @@ To achieve this, use `.as()` method.
 
 If you pass a second argument as a context object to `.as()` method, classes are exported under the context instead of a global scope.
 
-(function() {
-    var def = use_simple_class_declaration();
-    var context = {};
-    def(function() {}).as('myapp.module.Class', context);
-    new context.myapp.module.Class();
-})();
+	(function() {
+	    var def = use_simple_class_declaration();
+	    var context = {};
+	    def(function() {}).as('myapp.module.Class', context);
+	    new context.myapp.module.Class();
+	})();
 
-### <a name="GoodPoints">Good points</a>
+
+## <a name="GoodPoints">Good points</a>
 
 Some parts of the code, especially `.this._super()` method implementation was inspired by John Resig's Simple JavaScript Inheritance, but I further improved several points.
 
@@ -227,7 +228,8 @@ John Resig's implementation and many other libraries which provides original cla
 * you can easily implement Mix-in class with `.borrow()` method.
 * `this._super()` method works appropriately both in constructors and in methods, even under multiple level inheritance.
 * `.constructor` property correctly points to its constructor.
-* declaration sentences look like a natural language, and explicit.
+* declaration sentences look like a natural language, and has explicit semantics.
+
 
 	define(MyClass).as('myapp.module.MyClass').
 	it.inherits(SuperClass).
@@ -236,3 +238,6 @@ John Resig's implementation and many other libraries which provides original cla
 	    ownMethod: function() {
 	    }
 	});
+
+I hope this simple library would be useful to other developers.
+
