@@ -2,7 +2,7 @@
 =======
 This is a simple class declaration function in JavaScript.
 Classes defined with this function behave exactly as same as normal JavaScript constructor functions.
-This program aims to work just like a syntax sugar to easily declare Classes, its inheritance, Mix-ins, etc. without any dependencies on other libraries or any conflicts with them.
+This program aims to be as just a syntax sugar to easily declare Classes, its inheritance, Mix-ins, namespace, statics etc. without any dependencies on other libraries nor any conflicts with them.
 
 **Table of contents**
 
@@ -62,7 +62,7 @@ Now, let's take a look at each functionalities in detail.
 
 First of all, you need to call `use_simple_class_declaration()`, which returns a function.
 To use the function, store it in any variable as you like,
-such as 'def', 'define', 'declare' etc.
+such as `def`, `define`, `declare` etc.
 
 	var def = use_simple_class_declaration();
 	
@@ -135,11 +135,11 @@ This works perfectly as we expect.
 	g.constructor == GrandChildClass;  // true
 	g.getName(); // 'My name is Hiroshi'
 	g.getAge();  // 'I am 29'
-	g + ''       // '[Object object](name: Hiroshi)'
+	g + ''       // '[object Object](name: Hiroshi)'
 
 ### <a name="Mixins">Mix-ins</a>
 
-Our class can borrow methods from other classes by 'borrows()' method.
+Our class can borrow methods from other classes or objects through `.borrows()` method.
 
 	// Mix-in provider can be an object;
 	var MethodProvider = {
@@ -177,6 +177,11 @@ Here is an example of static properties.
 	    BLAH: {
 	        BAZ: true
 	    }
+	}).provides({
+	    method: function() {
+	        // You can refer to static properties through ._static property in an instance method.
+	        this._static.FOO == MyClass.FOO; // true
+	    }
 	});
 	
 	MyClass.FOO      // 0
@@ -186,6 +191,7 @@ Here is an example of static properties.
 ### <a name="ExportToNamespace">Export To Namespace</a>
 
 It's good habitat to declare your classes in your module scope, then export it to global scope under your namespace;
+To achieve this, use `.as()` method.
 
 	(function() {
 	    var def = use_simple_class_declaration();
@@ -198,6 +204,15 @@ It's good habitat to declare your classes in your module scope, then export it t
 	new ModuleLocalClass() // reference error.
 	var blah = new myapp.module.foo.bar.Blah();
 	blah.constructor // ModuleLocalClass
+
+If you pass a second argument as a context object to `.as()` method, classes are exported under the context instead of a global scope.
+
+(function() {
+    var def = use_simple_class_declaration();
+    var context = {};
+    def(function() {}).as('myapp.module.Class', context);
+    new context.myapp.module.Class();
+})();
 
 ### <a name="GoodPoints">Good points</a>
 
