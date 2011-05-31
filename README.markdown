@@ -14,8 +14,6 @@ This program aims to be as just a syntax sugar to easily declare Classes, its in
   * [Static properties](#StaticProperties)
   * [Export to namespace](#ExportToNamespace)
 * [Good Points](#GoodPoints)
-  * [Comparison with other libraries](#Comparison)
-* [Misc](#Misc)
 
 
 ## <a name="TheAPI">The API</a>
@@ -92,12 +90,12 @@ You can use the class exactly as same as a standard JavaScript class.
 You can define class inheritance as below:
 
 	function ChildClass(name, age) {
-	    // You can call ParentClass's constructor by 'this._super()'.
+	    // You can call super class' constructor by 'this._super()'.
 	    this._super(name);
 	    this.age = age;
 	}
 	def(ChildClass).
-	it.inherits(ParentClass).
+	it.inherits(BaseClass).
 	it.provides({
 	    getAge: function() {
 	        return this.age;
@@ -105,7 +103,7 @@ You can define class inheritance as below:
 	});
 
 The most exciting thing is that the scope chain of `this._super()` woks perfectly even in multiple level inheritances.
-This is difficult to write in a standard way. (I will explain this later in this article.)
+This is difficult to write in a standard way.
 
 	function GrandChildClass(name, age) {
 	    this._super(name, age);
@@ -114,7 +112,9 @@ This is difficult to write in a standard way. (I will explain this later in this
 	it.inherits(ChildClass).
 	it.provides({
 	    getName: function() {
-	        // You can invoke ancestors method by 'this._super()'.
+	        // Even if the closest ancestor (in this case, ChildClass) doesn't implement getName() method explicitly,
+	        // this._super() method looks up to BaseClass's getName() method.
+	        // This is awesome, isn't it?
 	        return 'My name is ' + this._super();
 	    },
 	    getAge: function() {
@@ -216,4 +216,23 @@ If you pass a second argument as a context object to `.as()` method, classes are
 
 ### <a name="GoodPoints">Good points</a>
 
-Not written yet.
+Some parts of the code, especially `.this._super()` method implementation was inspired by John Resig's Simple JavaScript Inheritance, but I further improved several points.
+
+In this library, 
+
+* `init` method are not mandatory.
+
+John Resig's implementation and many other libraries which provides original class system often requires us to declare `init` method as a constructor function. It is indeed convensional, but not standard. I wanted a simple syntax to use normal function as a class constructor. This is the main reason I wrote this code.
+
+* you can easily implement Mix-in class with `.borrow()` method.
+* `this._super()` method works appropriately both in constructors and in methods, even under multiple level inheritance.
+* `.constructor` property correctly points to its constructor.
+* declaration sentences look like a natural language, and explicit.
+
+	define(MyClass).as('myapp.module.MyClass').
+	it.inherits(SuperClass).
+	it.borrows(Provider, OtherProvider).
+	it.provides({
+	    ownMethod: function() {
+	    }
+	});
