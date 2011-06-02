@@ -1,5 +1,6 @@
 ;(function(global) {
-    global.use_simple_class_declaration = function() {
+    if (typeof exports != 'undefined' && exports != null) exports = module.exports = define;
+    else global.use_simple_class_declaration = function() {
         return define;
     }
 
