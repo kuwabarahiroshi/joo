@@ -22,13 +22,13 @@ This program aims to be as just a syntax sugar to easily declare Classes, its in
 
 **in Node.js**
 
-install joo with npm `npm install joo`.
+install joo with npm `npm install joo`, then require it as below.
 
 	var def = require('joo');
 
 **in HTML**
 
-load joo as a script `<script type="text/javascript" src="/path/to/joo.js"></script>`.
+load joo as a script `<script type="text/javascript" src="/path/to/joo.js"></script>`, then require it as below.
 
 	var def = require_joo();
 
