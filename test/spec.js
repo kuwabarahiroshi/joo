@@ -1,5 +1,5 @@
 describe('API', function() {
-    var def = use_simple_class_declaration();
+    var def = require_joo();
     function MyClass() {}
 
     it('has .it property.', function() {
@@ -23,7 +23,7 @@ describe('API', function() {
 });
 
 describe('.it property', function() {
-    var def = use_simple_class_declaration();
+    var def = require_joo();
     function MyClass() {}
 
     it('refers to itself.', function() {
@@ -33,7 +33,7 @@ describe('.it property', function() {
 });
 
 describe('.provides() method', function() {
-    var def = use_simple_class_declaration();
+    var def = require_joo();
     function MyClass(name) {
         this.name = name;
     }
@@ -63,7 +63,7 @@ describe('.provides() method', function() {
 });
 
 describe('.inherits() method', function() {
-    var def = use_simple_class_declaration();
+    var def = require_joo();
 
     // prepare spied methods
     function SpyClass() {}
@@ -236,7 +236,7 @@ describe('.inherits() method', function() {
 });
 
 describe('.borrows() method', function() {
-    var def = use_simple_class_declaration();
+    var def = require_joo();
     function MyClass(name, age) {
         this.name = name;
         this.age = age;
@@ -295,7 +295,7 @@ describe('.borrows() method', function() {
 });
 
 describe('.as() method', function() {
-    var def = use_simple_class_declaration();
+    var def = require_joo();
 
     it('returns itself.', function() {
         function MyClass() {}
@@ -341,7 +341,7 @@ describe('.as() method', function() {
 });
 
 describe('.hasStatic() method', function() {
-    var def = use_simple_class_declaration();
+    var def = require_joo();
 
     it('returns itself', function() {
         var descriptor = def(function() {});

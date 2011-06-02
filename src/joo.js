@@ -1,6 +1,6 @@
 ;(function(global) {
     if (typeof exports != 'undefined' && exports != null) exports = module.exports = define;
-    else global.use_simple_class_declaration = function() {
+    else global.require_joo = function() {
         return define;
     }
 

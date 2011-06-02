@@ -1,12 +1,14 @@
 <a name="README">[JOO](http://github.com/kuwabarahiroshi/joo)</a>
 =======
 **Simple class declaration function to write OO code in JavaScript**
-This is a simple class declaration function in JavaScript.
+
+This library provides a simple class declaration function.
 Classes defined with this function behave exactly as same as normal JavaScript constructor functions.
 This program aims to be as just a syntax sugar to easily declare Classes, its inheritance, Mix-ins, namespace, statics etc. without any dependencies on other libraries nor any conflicts with them.
 
 **Table of contents**
 
+* [Usage](#Usage)
 * [The API](#TheAPI)
 * [Features](#Features)
   * [Class declaration](#ClassDeclaration)
@@ -16,12 +18,34 @@ This program aims to be as just a syntax sugar to easily declare Classes, its in
   * [Export to namespace](#ExportToNamespace)
 * [Good Points](#GoodPoints)
 
+## <a name="Usage">Usage</a>
+
+**in Node.js**
+
+install joo with npm `npm install joo`.
+
+	var def = require('joo');
+
+**in HTML**
+
+load joo as a script `<script type="text/javascript" src="/path/to/joo.js"></script>`.
+
+	var def = require_joo();
+
+Then, define your class with `def()`.
+
+	function MyClass() {}
+	def(MyClass).
+	it.provides({
+	    doSomething: function() {}
+	});
+
 
 ## <a name="TheAPI">The API</a>
 
 Here is the whole API of this program.
 
-	var def = use_simple_class_declaration();
+	var def = require_joo();
 	
 	def(function() {
 	    // This is the class constructor.
@@ -59,11 +83,11 @@ Now, let's take a look at each functionalities in detail.
 
 ### <a name="ClassDeclaration">ClassDeclaration</a>
 
-First of all, you need to call `use_simple_class_declaration()`, which returns a function.
+First of all, you need to call `require_joo()`, which returns a function.
 To use the function, store it in any variable as you like,
 such as `def`, `define`, `declare` etc.
 
-	var def = use_simple_class_declaration();
+	var def = require_joo();
 	
 	// You can define constructor function in a standard way.
 	function BaseClass(name) {
@@ -195,7 +219,7 @@ It's good habitat to declare your classes in your module scope, then export it t
 To achieve this, use `.as()` method.
 
 	(function() {
-	    var def = use_simple_class_declaration();
+	    var def = require_joo();
 	
 	    function ModuleLocalClass() {}
 	    def(ModuleLocalClass).as('myapp.module.foo.bar.Blah').
@@ -209,7 +233,7 @@ To achieve this, use `.as()` method.
 If you pass a second argument as a context object to `.as()` method, classes are exported under the context instead of a global scope.
 
 	(function() {
-	    var def = use_simple_class_declaration();
+	    var def = require_joo();
 	    var context = {};
 	    def(function() {}).as('myapp.module.Class', context);
 	    new context.myapp.module.Class();
