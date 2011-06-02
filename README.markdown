@@ -1,5 +1,6 @@
-<a name="README">[JavaScript Simple Class Declaration](http://github.com/kuwabarahiroshi/JavaScript-Simple-Class-Declaration)</a>
+<a name="README">[JOO](http://github.com/kuwabarahiroshi/joo)</a>
 =======
+**Simple class declaration function to write OO code in JavaScript**
 This is a simple class declaration function in JavaScript.
 Classes defined with this function behave exactly as same as normal JavaScript constructor functions.
 This program aims to be as just a syntax sugar to easily declare Classes, its inheritance, Mix-ins, namespace, statics etc. without any dependencies on other libraries nor any conflicts with them.
