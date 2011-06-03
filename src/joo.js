@@ -43,7 +43,7 @@
     function Class() {}
     var hasReferenceToSuper = /xyz/.test(function(){xyz;}) ? /\b_super\b/ : /.*/;
     var ieBugs = {toString:0}.propertyIsEnumerable('toString') ?
-                 false : ['toString', 'toLocaleString', 'valueOf', 'constructor', 'isPrototypeOf'];
+                 false : ['toString', 'toLocaleString', 'valueOf', 'isPrototypeOf'];
 
     function createNamespace(hierarchy, context) {
         var name = hierarchy.shift();
@@ -64,14 +64,15 @@
     function borrow(Class, providers) {
         for (var i = 0, l = providers.length, provider; i < l;) {
             if ((provider = providers[i++]) instanceof Function) provider = provider.prototype;
-            provide(Class, provider);
+            provide(Class, provider, {'_super':1, 'constructor':1});
         }
     }
 
-    function provide(Class, properties) {
+    function provide(Class, properties, exception) {
         var i = 0, name, proto = Class.prototype, superProto = Class._super.prototype;
         for (name in properties)
-            addProperty(proto, name, properties[name], superProto);
+            if (!exception || !(name in exception))
+                addProperty(proto, name, properties[name], superProto);
 
         if (ieBugs) while (name = ieBugs[i++]) if (properties.hasOwnProperty(name))
             addProperty(proto, name, properties[name], superProto);
