@@ -5,7 +5,17 @@
     }
 
     function define(Class) {
-        return new ClassDescriptor(Class instanceof Function ? Class : function() {});
+        return new ClassDescriptor(
+            Class instanceof Function ? Class
+            : (Class instanceof String ? registerToNamespace(function() {}, Class) : function() {})
+        );
+    }
+    define.fn = function(fn) {
+        return ({
+            as: function(namespace, context) {
+                return registerToNamespace(fn, namespace, context);
+            }
+        });
     }
 
     function ClassDescriptor(Class) {
@@ -15,8 +25,7 @@
     }
 
     ClassDescriptor.prototype.as = function(namespace, context) {
-        var hierarchy = namespace.split('.'), name = hierarchy.pop();
-        createNamespace(hierarchy, context || global)[name] = this.Class;
+        registerToNamespace(this.Class, namespace, context);
         return this;
     }
 
@@ -44,6 +53,12 @@
     var hasReferenceToSuper = /xyz/.test(function(){xyz;}) ? /\b_super\b/ : /.*/;
     var ieBugs = {toString:0}.propertyIsEnumerable('toString') ?
                  false : ['toString', 'toLocaleString', 'valueOf', 'isPrototypeOf'];
+
+    function registerToNamespace(subject, namespace, context) {
+        var hierarchy = namespace.split('.'), name = hierarchy.pop();
+        createNamespace(hierarchy, context || global)[name] = subject;
+        return subject;
+    }
 
     function createNamespace(hierarchy, context) {
         var name = hierarchy.shift();
