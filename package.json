@@ -1,7 +1,7 @@
 {
   "name": "joo",
   "description": "Simple class declaration function to write OO code in JavaScript",
-  "version": "1.0.2",
+  "version": "1.0.5",
   "homepage": "http://github.com/kuwabarahiroshi/joo",
   "author": "Hiroshi Kuwabara <hiroshi.kuwabara.81@gmail.com>",
   "licenses": [{

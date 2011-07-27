@@ -1,4 +1,5 @@
-;(function(global) {
+;(function() {
+    var global = this;
     if (typeof exports != 'undefined' && exports != null) exports = module.exports = define;
     else global.require_joo = function() {
         return define;
@@ -7,7 +8,7 @@
     function define(Class) {
         return new ClassDescriptor(
             Class instanceof Function ? Class
-            : (Class instanceof String ? registerToNamespace(function() {}, Class) : function() {})
+            : (typeof Class === 'string' ? registerToNamespace(function() {}, Class) : function() {})
         );
     }
     define.fn = function(fn) {
@@ -114,4 +115,4 @@
         var name, p = cls.prototype, s = p._static = p._static || {};
         for (name in properties) cls[name] = s[name] = properties[name];
     }
-})(this);
+}());
