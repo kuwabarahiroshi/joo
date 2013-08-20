@@ -292,6 +292,24 @@ describe('.borrows() method', function() {
         expect(myObj instanceof SubClass).toBe(true);
         expect(myObj instanceof OtherProvider).toBe(false);
     });
+
+    describe('given primitive to .brrows()', function() {
+        it('threw type error', function() {
+            var descripter = def(MyClass);
+            expect(function() {
+                descripter.borrows(undefined);
+            }).toThrow(new TypeError('undefined has no properties'));
+            expect(function() {
+                descripter.borrows(null);
+            }).toThrow(new TypeError('null has no properties'));
+            expect(function() {
+                descripter.borrows(1);
+            }).toThrow(new TypeError('1 has no properties'));
+            expect(function() {
+                descripter.borrows("A");
+            }).toThrow(new TypeError('A has no properties'));
+        });
+    })  ;
 });
 
 describe('.as() method', function() {
