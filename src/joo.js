@@ -80,6 +80,7 @@
     function borrow(Class, providers) {
         for (var i = 0, l = providers.length, provider; i < l;) {
             if ((provider = providers[i++]) instanceof Function) provider = provider.prototype;
+            else if (!isObject(provider)) throw new TypeError(provider + " has no properties");
             provide(Class, provider, {'_super':1, 'constructor':1});
         }
     }
@@ -114,5 +115,9 @@
     function makeStatic(cls, properties) {
         var name, p = cls.prototype, s = p._static = p._static || {};
         for (name in properties) cls[name] = s[name] = properties[name];
+    }
+
+    function isObject(obj) {
+        return obj === Object(obj);
     }
 }());
